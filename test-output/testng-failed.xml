@@ -5,7 +5,7 @@
     <classes>
       <class name="almosaferWeb.TestCases">
         <methods>
-          <include name="randomMethodToChangeLang"/>
+          <include name="switchingToHotelTab"/>
           <include name="setUp"/>
         </methods>
       </class> <!-- almosaferWeb.TestCases -->

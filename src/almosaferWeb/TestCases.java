@@ -2,7 +2,9 @@ package almosaferWeb;
 
 import static org.testng.Assert.assertEquals;
 
+import java.time.DayOfWeek;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.Random;
 
 import org.openqa.selenium.By;
@@ -75,36 +77,104 @@ public class TestCases extends Parameters {
 		WebElement hotelsTab = driver.findElement(By.id("uncontrolled-tab-example-tab-hotels"));
 		String actualResult = hotelsTab.getAttribute("aria-selected");
 		String expectedResult = "false";
-		
+
 		assertEquals(actualResult, expectedResult);
 
 	}
-	
+
 	@Test(priority = 6)
-	public void randomMethodToChangeLang() {
-		Random rand = new Random ();
+	public void verifyingDepartureAndReturnDates() {
+
+		LocalDate currentDate = LocalDate.now();
+
+		WebElement departureDate = driver
+				.findElement(By.cssSelector("div[class='sc-iHhHRJ sc-kqlzXE blwiEW'] span[class='sc-cPuPxo LiroG']"));
+		int expectedDepartureDay = currentDate.plusDays(1).getDayOfMonth();
+
+		int actualDepartureDay = Integer.parseInt(departureDate.getText());
+
+		assertEquals(actualDepartureDay, expectedDepartureDay);
+
+		WebElement returnDate = driver
+				.findElement(By.cssSelector("div[class='sc-iHhHRJ sc-OxbzP edzUwL'] span[class='sc-cPuPxo LiroG']"));
+
+		int expextedReturnDate = currentDate.plusDays(2).getDayOfMonth();
+		int actualReturnDay = Integer.parseInt(returnDate.getText());
+
+		assertEquals(actualReturnDay, expextedReturnDate);
+
+	}
+
+	@Test(priority = 7, enabled = false)
+	public void randomMethodToChangeLang_1() {
+		Random rand = new Random();
 		int randomIndexForWebsite = rand.nextInt(Websites.length);
 		driver.get(Websites[randomIndexForWebsite]);
-		
+
 		String currentUrl = driver.getCurrentUrl();
-		
+
 		if (currentUrl.contains("ar")) {
 			String expectedLang = "ar";
 			String actualLang = driver.findElement(By.tagName("html")).getAttribute("lang");
-			
+
 			assertEquals(actualLang, expectedLang);
 		}
-		
+
 		else {
 			String expectedLang = "en";
 			String actualLang = driver.findElement(By.tagName("html")).getAttribute("lang");
-			 
+
 			assertEquals(actualLang, expectedLang);
 		}
-		
-		
-		
-		
+
+	}
+
+	@Test(priority = 7, enabled = true)
+	public void randomMethodToChangeLang_2() {
+		Random rand = new Random();
+		int randomNum = rand.nextInt(101);
+		WebElement langButton = driver.findElement(By.className("sc-gkFcWv"));
+
+		if (randomNum % 2 != 0) {
+			langButton.click();
+		}
+
+		String currentUrl = driver.getCurrentUrl();
+
+		if (currentUrl.contains("ar")) {
+			String expectedLang = "ar";
+			String actualLang = driver.findElement(By.tagName("html")).getAttribute("lang");
+
+			assertEquals(actualLang, expectedLang);
+
+		}
+
+		else {
+			String expectedLang = "en";
+			String actualLang = driver.findElement(By.tagName("html")).getAttribute("lang");
+
+			assertEquals(actualLang, expectedLang);
+		}
+
+	}
+
+	@Test(priority = 8)
+	public void switchingToHotelTab() {
+		String currentUrl = driver.getCurrentUrl();
+		WebElement hotelTab = driver.findElement(By.id("uncontrolled-tab-example-tab-hotels"));
+		hotelTab.click();
+
+		WebElement hotelsTabSearchField = driver.findElement(By.cssSelector(".phbroq-2.cerrLM.AutoComplete__Input"));
+
+		if (currentUrl.contains("en")) {
+			hotelsTabSearchField.sendKeys(citiesInEnglish[randomEnglishCity]);
+		}
+
+		else {
+			hotelsTabSearchField.sendKeys(citiesInArabic[randomArabicCity]);
+
+		}
+
 	}
 
 }
