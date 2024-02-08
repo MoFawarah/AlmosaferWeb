@@ -5,8 +5,18 @@
     <classes>
       <class name="almosaferWeb.TestCases">
         <methods>
+          <include name="randomMethodToChangeLang_2"/>
+          <include name="verifyingContactNumber"/>
+          <include name="verifyingHotelsTabNotSelectedByDefault"/>
+          <include name="verifyingQitafLogoIsDisplayedInFooter"/>
+          <include name="randomlySelectingTheVisitorsNumber"/>
           <include name="switchingToHotelTab"/>
+          <include name="verifyingDepartureAndReturnDates"/>
+          <include name="verifyingSortingLowestPriceOption"/>
+          <include name="verifingDefaultCurrencyIsSAR"/>
+          <include name="verifyingDefaultLangIsEnglish"/>
           <include name="setUp"/>
+          <include name="verifyingSearchHotelsPageFullycomplete"/>
         </methods>
       </class> <!-- almosaferWeb.TestCases -->
     </classes>
